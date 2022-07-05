@@ -1,6 +1,5 @@
 import db from "../connection.js";
 
-
 export const getUserByUsername = (username) => {
 	const sql = "SELECT * FROM user WHERE username = ?";
 

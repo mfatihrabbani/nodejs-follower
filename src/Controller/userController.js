@@ -13,7 +13,7 @@ export const signIn = async (req, res, next) => {
 		const {username, id} = result[0]
 		const token = jwt.sign({ username, id}, "rahasia");
 		console.log(token)
-		res.cookie("Token", token,{httpOnly: true});
+		res.set({"Token": token});
 		res.status(200).json({ message: "Sucess signIn", code: 200});
 	}catch(err){
 		console.log(err);
