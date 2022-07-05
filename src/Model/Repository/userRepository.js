@@ -16,3 +16,11 @@ export const getUserByUsername = (username) => {
 		})
 	})
 }
+
+export const saveUser = (username) => {
+	const sql = "INSERT INTO user (username) VALUES (?)";
+
+	db.query(sql, [username], (err) => {
+		if(err) throw err;
+	})
+};
