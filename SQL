@@ -1,6 +1,14 @@
 CREATE TABLE followers(
-	id_user int not null primary key,
-	following int not null,
+	id int not null auto_increment primary key,
+	id_user int not null,
+	id_following int not null,
+	CONSTRAINT fk_user_followers
+	FOREIGN KEY (id_user) REFERENCES user(id)
+) engine = innodb;
+
+CREATE TABLE followings(
+	id_user int not null,
+	following int not null primary key,
 	CONSTRAINT fk_user_followers
 	FOREIGN KEY (id_user) REFERENCES user(id)
 ) engine = innodb;

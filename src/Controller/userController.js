@@ -1,5 +1,5 @@
 import {getUserByUsername, saveUser} from "../Model/Repository/userRepository.js";
-import {createError} from "../Error/handleError.js";
+import {createError} from "../Response/handleResponse.js";
 import jwt from "jsonwebtoken";
 
 export const signIn = async (req, res, next) => {

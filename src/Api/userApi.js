@@ -1,11 +1,14 @@
 import express from "express";
 import {signIn, signUp} from "../Controller/userController.js";
-import {followingUser} from "../Controller/followerController.js";
+import {followingUser, followerList, followingList, unFollow} from "../Controller/followerController.js";
 import {auth} from "../Middleware/auth.js";
 const router = express.Router();
 
 router.post("/signin", signIn);
 router.post("/signup", signUp);
-router.post("/follow", [auth], followingUser);
+router.post("/follow/:idFollow", [auth], followingUser);
+router.get("/followers/:id", followerList);
+router.get("/followings/:id", followingList);
+router.delete("/unfollow/:idUnFollow", [auth], unFollow);
 
 export default router;
