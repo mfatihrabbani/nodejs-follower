@@ -14,7 +14,8 @@ export const signIn = async (req, res, next) => {
 		const token = jwt.sign({ username, id}, "rahasia");
 		console.log(token)
 		res.set({"Token": token});
-		res.status(200).json({ message: "Sucess signIn", code: 200});
+		console.log(id);
+		res.status(200).json({ message: "Sucess signIn", code: 200, id});
 	}catch(err){
 		console.log(err);
 		next(createError(500, "Failed signIn"));
@@ -24,6 +25,7 @@ export const signIn = async (req, res, next) => {
 export const signUp = async (req, res, next) => {
 	try{
 		let {username} = req.body;
+		console.log(username);
 		if(!username) return next(createError(404, "Username cannot blank"));
 
 		const result = await getUserByUsername(username);
@@ -34,5 +36,19 @@ export const signUp = async (req, res, next) => {
 	}catch(err){
 		console.log(err);
 		next(createError(500, "Failed signUp"));
+	}
+}
+
+export const renderLogin = (req, res, next) => {
+		res.render("../View/loginPage.ejs",{title: "Login Page"})
+}
+
+
+export const renderRegister = (req, res, next) => {
+	try{
+		res.render("../View/registerPage.ejs",{title: "Register Page"})
+	}catch(err){
+		console.log(err)
+		next(createError(500, "Failed to render register"))
 	}
 }

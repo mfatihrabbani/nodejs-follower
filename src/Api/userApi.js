@@ -7,8 +7,8 @@ const router = express.Router();
 router.post("/signin", signIn);
 router.post("/signup", signUp);
 router.post("/follow/:idFollow", [auth], followingUser);
-router.get("/followers/:id", followerList);
-router.get("/followings/:id", followingList);
+router.get("/followerlist/:id", followerList);
+router.get("/followinglist/:id", followingList);
 router.delete("/unfollow/:idUnFollow", [auth], unFollow);
 
 export default router;

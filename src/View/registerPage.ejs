@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title><%= title %></title>
+</head>
+<body>
+
+	<h1>Register Page</h1>
+	<br>
+	<form>
+		<label>Username</label>
+		<input type="text" name="username" id="username" required>
+		<button type="button" onclick="register()">Login</button>
+	</form>
+	
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+		const BASE_URL = "http://localhost:3000";
+
+
+		async function register(){
+			const username = document.getElementById("username").value;
+
+			const data = {username};
+			const response = await axios.post(`${BASE_URL}/api/user/signup`, data);
+
+			if(response.status == 200) window.location.href = `${BASE_URL}/login`;
+		}
+	</script>
+
+</body>
+</html>

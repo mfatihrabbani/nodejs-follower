@@ -23,3 +23,19 @@ export const saveUser = (username) => {
 		if(err) throw err;
 	})
 };
+
+export const getUserById = (id) => {
+	const sql = "SELECT * FROM user WHERE id = ?";
+
+	return new Promise((resolve, reject) => {
+		db.query(sql, [id], (err, results) => {
+			if(err){
+				console.log(err);
+				return reject(err);
+			}
+
+			const result = JSON.parse(JSON.stringify(results));
+			return resolve(result);
+		})
+	})
+}
