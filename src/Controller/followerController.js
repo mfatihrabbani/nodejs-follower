@@ -26,8 +26,9 @@ export const followingUser = async (req, res, next) => {
 export const followerList = async (req, res, next) => {
 	try{
 		const {id} = req.params;
+		console.log(id)
 		const followers = await getAllFollowerById(id);
-		if(followers.length == 0) return res.status(200).json(responseDataSuccess(200, "You dont have followers", 0));
+		if(followers.length == 0) return res.status(200).json(responseDataSuccess(200, "You dont have followers", {total: 0}));
 		res.status(200).json({status: "Sucess",code : 200, message: `Success get list follower ${id}`, data: {total: followers.length, followerList: followers}});
 	}catch(err){
 		console.log(err)
@@ -39,7 +40,7 @@ export const followingList = async (req, res, next) => {
 	try{
 		const {id} = req.params;
 		const followings = await getAllFollowingById(id);
-		if(followings.length == 0) return res.status(200).json(responseDataSuccess(200, "You not following other user", 0));
+		if(followings.length == 0) return res.status(200).json(responseDataSuccess(200, "You not following other user", {total: 0}));
 		res.status(200).json(responseDataSuccess(200, "Success Get Following user", {total: followings.length, followingList: followings}));
 	}catch(err){
 		console.log(err)
@@ -66,11 +67,25 @@ export const unFollow = async (req, res, next) => {
 export const renderFollow = async (req, res, next) => {
 	try{
 		const {id} = req.params;
+		console.log(id)
 		const user = await getUserById(id);
 		if(user.length == 0) return next(createError(404, "No one username"));
 		res.render("../View/followPage.ejs", {id, username: user[0].username});
 	}catch(err){
 		console.log(err)
 		next(createError(500, "Something Error when render follow"))
+	}
+}
+
+export const renderFollowersList = (req, res, next) => {
+	try{
+		const {id} = req.params;
+		console.log(id)
+		const user = await getUserById(id);
+		if(user.length == 0) return next(createError(404, "No one username"));
+		res.render("../View/followerList.ejs", {id, username: user[0].username});
+	}catch(err){
+		console.log(err)
+		next(createError(500, "Something Error when render follower list"))
 	}
 }

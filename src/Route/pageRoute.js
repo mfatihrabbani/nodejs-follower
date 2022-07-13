@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get("/login", renderLogin);
 router.get("/register", renderRegister);
-router.get("/:id", renderFollow)
+router.get("/:id", renderFollow);
+router.get("followers/:id", renderFollow)
 
 export default router;

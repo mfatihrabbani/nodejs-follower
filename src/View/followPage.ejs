@@ -10,25 +10,32 @@
 
 <h1><%= username %></h1>
 <br>
-<p id="id"><%= id %></p>
+<h1 id="id"><%= id %></h1>
 <br>
 <p id="followers"></p>
+<a href="http://localhost:3000/followers/<%= id %>">
+	<button>Followers list</button>
+</a>
 <br>
-<p id="followings"></p>
+<p onclick="followingsList()" id="followings"></p>
+<a href="http://localhost:3000/followings/<%= id %>">
+	<button>Followers list</button>
+</a>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
 	async function getData(){
 	const id = document.getElementById("id").value;
-	const responseFollower = await axios.get(`http://localhost:3000/api/user/followerlist/${id}`);
-	const responseFollowing = await axios.get(`http://localhost:3000/api/user/followinglist/${id}`);
+	console.log(id)
+	const responseFollower = await axios.get(`http://localhost:3000/api/user/followerlist/<%= id %>`);
+const responseFollowing = await axios.get(`http://localhost:3000/api/user/followinglist/<%= id %>`);
 	
-		const followers = responseFollower.data.data;
-		const followings = responseFollowing.data.data;
+	const followers = responseFollower.data.data.total;
+	const followings = responseFollowing.data.data.total;
 
 	document.getElementById("followers").innerHTML = `Followers ${followers}`
 	document.getElementById("followings").innerHTML = `Followings ${followings}`
 }
-window.onload = getData;
+window.onload = getData();
 </script>
 </body>
 </html>
